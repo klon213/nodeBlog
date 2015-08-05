@@ -42,18 +42,21 @@ router.post('/signUp', function(req, res, next) {
                     password: req.body.password,
                     userpic: req.body.userpic
                 }, function(result){
+
                     if(result == 1) {
                         var errorText = "Email " + req.body.email + " already exists";
                         res.status(422);
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({"email": errorText}));
                     }
+
                     if(result == 2) {
                         var errorText = "Login " + req.body.login + " already exists";
                         res.status(422);
                         res.setHeader('Content-Type', 'application/json');
                         res.send(JSON.stringify({"login": errorText}));
                     }
+
                         model.view(result.insertId, function (result) {
                             res.json(result[0]);
                         });
